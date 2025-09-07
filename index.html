@@ -28,9 +28,12 @@
         }
         Quagga.start();
       });
-      Quagga.onDetected(function (result) {
+    //  Quagga.onDetected(function (result) {
+  //document.getElementById("output").innerText = "Erkannt: " + result.codeResult.code;
+Quagga.onDetected(function (result) {
   document.getElementById("output").innerText = "Erkannt: " + result.codeResult.code;
 });
+    });
 
       });
     });
