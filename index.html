@@ -1,23 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Barcode Scanner</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="css/styles.css">
+  <title>Barcode Scanner</title>
+  <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
 </head>
 <body>
-    <h1>Barcode Scanner Web App</h1>
-    <input type="text" id="barcodeInput" placeholder="Scanned barcode will appear here" readonly>
-    <button id="scanButton">Scan Barcode</button>
-    <button id="cancelButton" style="display:none;">Cancel</button>
-    <button id="finishButton" style="display:none;">Finish</button>
-    <div id="scannerContainer" style="display:none;">
-        <video id="video" width="100%" height="auto" autoplay></video>
-        <div id="overlay"></div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@latest"></script>
-    <script src="js/app.js"></script>
+  <h1>Barcode Scanner</h1>
+  <button id="start-button">Scan starten</button>
+  <div id="interactive" class="viewport"></div>
+
+  <script>
+    document.getElementById('start-button').addEventListener('click', function () {
+      Quagga.init({
+        inputStream: {
+          name: "Live",
+          type: "LiveStream",
+          target: document.querySelector('#interactive'),
+        },
+        decoder: {
+          readers: ["code_128_reader", "ean_reader"]
+        }
+      }, function (err) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        Quagga.start();
+      });
+
+      Quagga.onDetected(function (result) {
+        alert("Barcode erkannt: " + result.codeResult.code);
+      });
+    });
+  </script>
 </body>
 </html>
