@@ -18,8 +18,7 @@
           target: document.querySelector('#interactive'),
         },
         decoder: {
-        readers: ["code_128_reader", "ean_reader", "ean_13_reader", "upc_reader"]
-
+          readers: ["code_128_reader", "ean_reader"]
         }
       }, function (err) {
         if (err) {
@@ -28,13 +27,9 @@
         }
         Quagga.start();
       });
-    //  Quagga.onDetected(function (result) {
-  //document.getElementById("output").innerText = "Erkannt: " + result.codeResult.code;
-Quagga.onDetected(function (result) {
-  document.getElementById("output").innerText = "Erkannt: " + result.codeResult.code;
-});
-    });
 
+      Quagga.onDetected(function (result) {
+        alert("Barcode erkannt: " + result.codeResult.code);
       });
     });
   </script>
