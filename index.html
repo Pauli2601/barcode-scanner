@@ -30,7 +30,9 @@
       });
 
       Quagga.onDetected(function (result) {
-        alert("Barcode erkannt: " + result.codeResult.code);
+  document.getElementById("output").innerText = "Erkannt: " + result.codeResult.code;
+});
+
       });
     });
   </script>
